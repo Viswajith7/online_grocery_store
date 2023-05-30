@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% extends 'induspage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"></h4>
+                  <p class="card-description">
+                    Add class <code>.table-{color}</code>
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            CATEGORY NAME
+                          </th>
+                          <th>
+                            PRODUCT NAME
+                          </th>
+                          <th>
+                            QUANTITY
+                          </th>
+                          <th>
+                            DESCRIPTION
+                          </th>
+                            <th>
+                            PRICE
+                          </th>
+                            <th>
+                            IMAGE
+                          </th>
+                            <th>
+                            OPTIONS
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in data %}
+                        <tr class="table-info">
+                          <td>
+                            {{d.Category_name}}
+                          </td>
+                          <td>
+                            {{d.Productname}}
+                          </td>
+                            <td>
+                            {{d.Quantity}}
+                          </td>
+                            <td>
+                            {{d.Descriptions}}
+                          </td>
+                            <td>
+                            {{d.Price}}
+                          </td>
+
+                          <td>
+                            <img src="{{d.Image.url}}">
+                          </td>
+
+                           <form action="{% url 'editproduct' dataid=d.id %}">
+                              <td>
+                              <button type="submit" class="btn btn-primary mr-2"> EDIT </button>
+                              </form>
+                               </td>
+                            <form action="{% url 'deleteproduct' dataid=d.id %}">
+                            <td>
+
+                              <button type="submit" class="btn btn-primary mr-2"> DELETE</button>
+                            </td>
+                            </form>
+
+
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   {% if messages %}
+       {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+              swal('{{i}}','','warning');
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}','','error');
+            </script>
+        {% else %}
+            <script>
+                swal('{{i}}','','success');
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

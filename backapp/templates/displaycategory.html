@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends 'induspage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"></h4>
+                  <p class="card-description">
+                    Add class <code>.table-{color}</code>
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            CATEGORY NAME
+                          </th>
+                          <th>
+                            DESCRIPTION
+                          </th>
+                          <th>
+                            IMAGE
+                          </th>
+                          <th>
+                            OPTIONS
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in data %}
+                        <tr class="table-info">
+                          <td>
+                            {{d.Catagoryname}}
+                          </td>
+                          <td>
+                            {{d.Description}}
+                          </td>
+                          <td>
+                            <img src="{{d.Image.url}}">
+                          </td>
+
+                           <form action="{% url 'editcategory' dataid=d.id %}">
+                              <td>
+                              <button type="submit" class="btn btn-primary mr-2"> EDIT </button>
+                              </form>
+                               </td>
+                            <form action="{% url 'deletecategory' dataid=d.id %}">
+                            <td>
+
+                              <button type="submit" class="btn btn-primary mr-2"> DELETE</button>
+                            </td>
+                            </form>
+
+
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
